@@ -1,0 +1,14 @@
+from django.urls import path, reverse_lazy
+from django.views.generic import RedirectView
+from posts.views import SearchListView
+from posts.views import PostDetailView, PostListView, UsersPostListView
+
+urlpatterns = [
+    path("posts/", PostListView.as_view(), name="post-list"),
+    path("posts/<pk>/", PostDetailView.as_view(), name="post-detail"),
+    path(
+        "posts/author/<username>/", UsersPostListView.as_view(), name="user-post-list"
+    ),
+    path("", RedirectView.as_view(url=reverse_lazy("post-list"), permanent=False)),
+    path("searching/results", SearchListView.as_view(), name="search" )
+]
